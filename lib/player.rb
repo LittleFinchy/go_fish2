@@ -7,6 +7,12 @@ class Player
     @books = 0
   end
 
+  def ask(player, rank)
+    cards_won = player.remove_cards(rank)
+    take_cards(cards_won)
+    cards_won
+  end
+
   def take_cards(cards)
     self.hand.concat(cards)
     check_for_book
