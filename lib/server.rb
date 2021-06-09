@@ -10,11 +10,22 @@ class Server
 
   def accept_client
     client = server.accept_nonblock
-    set_output(client, "Welcome")
-    person = client_to_person(client, 0)
+    name = welcome_get_name(client)
+    person = Person.new(client, name)
     lobby.push(person)
   rescue IO::WaitReadable #, Errno::EINTR
     "No Clients"
+  end
+
+  # def create_game_if_possible
+  #   if lobby.length == 3
+  #     game = Game.new()
+  #   end
+  # end
+
+  def welcome_get_name(client)
+    set_output(client, "Welcome, enter your name: ")
+    get_input(client)
   end
 
   def set_output(client, message)
@@ -26,10 +37,6 @@ class Server
     client.read_nonblock(1000).chomp
   rescue IO::WaitReadable
     ""
-  end
-
-  def client_to_person(client, name)
-    Person.new(client)
   end
 
   def close

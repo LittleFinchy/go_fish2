@@ -13,10 +13,12 @@ describe("#Server") do
     server.close
   end
 
-  context "#client_to_person" do
-    it "a person is made from a client and a name" do
-      person = server.client_to_person(0, "Mary")
-      expect(person.name).to eq "Mary"
+  def make_clients_join(num)
+    num.times do |x|
+      client = Client.new()
+      clients.push(client)
+      client.set_output(["Mary", "Stephen", "Joe"][x])
+      socket = server.accept_client
     end
   end
 
@@ -52,8 +54,22 @@ describe("#Server") do
     it "server lobby has people in it" do
       client = Client.new()
       clients.push(client)
+      client.set_output("Mary")
       socket = server.accept_client
       expect(server.lobby[0].name).to eq "Mary"
+    end
+
+    it "server lobby has people in it" do
+      make_clients_join(3)
+      expect(server.lobby[2].name).to eq "Joe"
+    end
+  end
+
+  xcontext "#create_game_if_possible" do
+    it "creates a game if 3 clients join" do
+      make_clients_join(3)
+      game = server.create_game_if_possible
+      expect(game).to_not be nil
     end
   end
 end
