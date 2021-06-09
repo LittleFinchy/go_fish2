@@ -1,7 +1,7 @@
 require "rspec"
 require "../lib/card"
 
-describe("#card") do
+describe("#Card") do
   it "should remember the rank it was made with" do
     king = Card.new("K", "D")
     ten = Card.new("10", "D")
@@ -18,5 +18,13 @@ describe("#card") do
     expect(hearts.suit).to eq "H"
     expect(clubs.suit).to eq "C"
     expect(diamonds.suit).to eq "D"
+  end
+
+  context ".==" do
+    it "should say two cards of the same rank are equal" do
+      card1 = Card.new("4", "C")
+      card2 = Card.new("4", "D")
+      expect(card1).to eq card2
+    end
   end
 end
