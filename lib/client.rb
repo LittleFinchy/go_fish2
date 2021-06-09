@@ -12,6 +12,10 @@ class Client
     ""
   end
 
+  def set_output(text)
+    socket.puts(text)
+  end
+
   def close
     socket.close
   end
