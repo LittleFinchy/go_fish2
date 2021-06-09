@@ -7,9 +7,7 @@ describe("#Server") do
   let!(:server) { Server.new() }
 
   after(:each) do
-    clients.each do |client|
-      client.close
-    end
+    clients.each { |client| client.close }
     server.close
   end
 

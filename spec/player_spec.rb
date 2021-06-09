@@ -32,4 +32,16 @@ describe("#player") do
       expect(player.hand).to eq [Card.new("2", "S")]
     end
   end
+
+  context "#check_for_book" do
+    it "increase the books count for a player if they have a book" do
+      player.take_cards([Card.new("8", "C"), Card.new("8", "S"), Card.new("2", "S"), Card.new("8", "D"), Card.new("8", "H")])
+      expect(player.books).to eq 1
+    end
+
+    it "takes the book out of the players hand" do
+      player.take_cards([Card.new("8", "C"), Card.new("8", "S"), Card.new("2", "S"), Card.new("8", "D"), Card.new("8", "H")])
+      expect(player.hand.length).to eq 1
+    end
+  end
 end
