@@ -20,6 +20,27 @@ describe("#Server") do
     end
   end
 
+  context "#set_output" do
+    it "gives the client a message" do
+      client = Client.new()
+      clients.push(client)
+      socket = server.server.accept_nonblock
+      server.set_output(socket, "Welcome")
+      expect(client.get_input).to eq "Welcome"
+    end
+  end
+
+  context "#get_input" do
+    it "gets a message from a client" do
+      client = Client.new()
+      clients.push(client)
+      socket = server.server.accept_nonblock
+      client.set_output "hello"
+      message = server.get_input(socket)
+      expect(message).to eq "hello"
+    end
+  end
+
   context "#accept_client" do
     it "clients can join the server" do
       client = Client.new()
