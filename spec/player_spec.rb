@@ -3,7 +3,7 @@ require "../lib/player"
 require "../lib/card"
 
 describe("#player") do
-  let(:player) { Player.new() }
+  let(:player) { Player.new("Stephen") }
 
   it "should have an empty hand made" do
     expect(player.hand.length).to eq 0
