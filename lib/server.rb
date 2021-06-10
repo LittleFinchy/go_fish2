@@ -1,4 +1,5 @@
 require_relative "person"
+require_relative "game"
 
 class Server
   attr_reader :server, :lobby
@@ -17,15 +18,18 @@ class Server
     "No Clients"
   end
 
-  # def create_game_if_possible
-  #   if lobby.length == 3
-  #     game = Game.new()
-  #   end
-  # end
+  def create_game_if_possible
+    if lobby.length == 3
+      game = Game.new(lobby.shift(3))
+    end
+  end
 
-  def welcome_get_name(client)
+  def welcome_get_name(client, message = "")
     set_output(client, "Welcome, enter your name: ")
-    get_input(client)
+    while message == ""
+      message = get_input(client)
+    end
+    message
   end
 
   def set_output(client, message)

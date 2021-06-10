@@ -17,6 +17,7 @@ describe("#Server") do
       clients.push(client)
       client.set_output(["Mary", "Stephen", "Joe"][x])
       socket = server.accept_client
+      client.get_input
     end
   end
 
@@ -45,6 +46,7 @@ describe("#Server") do
     it "clients can join the server" do
       client = Client.new()
       clients.push(client)
+      client.set_output("Mary")
       socket = server.accept_client
       expect(server.lobby.length).to eq 1
     end
@@ -63,11 +65,25 @@ describe("#Server") do
     end
   end
 
-  xcontext "#create_game_if_possible" do
+  context "#create_game_if_possible" do
+    it "does not creates a game if only 2 clients join" do
+      make_clients_join(2)
+      game = server.create_game_if_possible
+      expect(game).to be nil
+    end
+
     it "creates a game if 3 clients join" do
       make_clients_join(3)
       game = server.create_game_if_possible
       expect(game).to_not be nil
+    end
+
+    it "moves people from lobby to the game" do
+      make_clients_join(3)
+      people = server.lobby.dup
+      game = server.create_game_if_possible
+      expect(server.lobby).to eq []
+      expect(game.people).to eq people
     end
   end
 end
