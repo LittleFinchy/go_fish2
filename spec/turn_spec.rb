@@ -74,6 +74,15 @@ describe("#Turn") do
     end
 
     it "returns the person object asked for" do
+      clients[0].set_output("1")
+      pick = turn.pick_person
+      expect(pick.name).to eq "Stephen"
+    end
+
+    it "returns the person object asked for" do
+      clients[0].set_output("2")
+      pick = turn.pick_person
+      expect(pick.name).to eq "Joe"
     end
   end
 
