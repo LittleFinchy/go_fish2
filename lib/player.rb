@@ -7,8 +7,8 @@ class Player
     @books = 0
   end
 
-  def ask(player, rank)
-    cards_won = player.remove_cards(rank)
+  def ask(person, card)
+    cards_won = person.player.remove_cards(card.rank)
     take_cards(cards_won)
     cards_won
   end

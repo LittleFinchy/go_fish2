@@ -8,6 +8,8 @@ describe("#Turn") do
   let!(:clients) { [] }
   let!(:server) { Server.new() }
   let!(:turn) { set_up_turn }
+  let!(:person2) { server.lobby[1] }
+  let!(:person3) { server.lobby[2] }
 
   after(:each) do
     clients.each { |client| client.close }
@@ -83,6 +85,25 @@ describe("#Turn") do
       clients[0].set_output("2")
       pick = turn.pick_person
       expect(pick.name).to eq "Joe"
+    end
+  end
+
+  context "#play" do
+    it "not move cards if player asked does not have the rank asked for" do
+      person2.player.take_cards([Card.new("A", "D")])
+      clients[0].set_output("1")
+      clients[0].set_output("1")
+      turn.play
+      expect(person2.player.hand.length).to eq 1
+    end
+
+    it "will move cards if player asked has the rank asked for" do
+      person2.player.take_cards([Card.new("7", "C")])
+      clients[0].set_output("1")
+      clients[0].set_output("1")
+      turn.play
+      expect(person2.player.hand.length).to eq 0
+      expect(person.player.hand.length).to eq 4
     end
   end
 
