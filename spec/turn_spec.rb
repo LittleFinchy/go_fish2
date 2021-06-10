@@ -28,7 +28,7 @@ describe("#Turn") do
     make_clients_join(3)
     person = server.lobby[0]
     person.player.take_cards([Card.new("7", "D"), Card.new("3", "H"), Card.new("4", "S")])
-    Turn.new(server, person)
+    Turn.new(server, person, server.lobby)
   end
 
   it "has a person who belongs to it" do
