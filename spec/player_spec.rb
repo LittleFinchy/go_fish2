@@ -36,13 +36,13 @@ describe("#player") do
   context "#ask" do
     it "return an array of cards from a player that match a rank" do
       player2 = Player.new("Connor", [Card.new("7", "D"), Card.new("5", "D")])
-      taken = player.ask(player2, "7")
+      taken = player.ask(player2, Card.new("7", "D"))
       expect(taken).to eq [Card.new("7", "D")]
     end
 
     it "adds to hand an array of cards from a player that match a rank" do
       player2 = Player.new("Connor", [Card.new("7", "D"), Card.new("5", "D")])
-      player.ask(player2, "7")
+      player.ask(player2, Card.new("7", "D"))
       expect(player.hand).to eq [Card.new("7", "D")]
     end
   end

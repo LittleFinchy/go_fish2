@@ -10,7 +10,7 @@ class Turn
   def play
     card_picked = pick_card
     person_picked = pick_person
-    person.player.ask(person_picked, card_picked)
+    person.player.ask(person_picked.player, card_picked)
   end
 
   def pick_card
