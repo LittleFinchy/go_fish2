@@ -6,6 +6,16 @@ class Game
   end
 
   def winner
+    if game_is_over
+      scores = {}
+      people.each { |person| scores[person.player.books] = person }
+      scores[scores.keys.max]
+    end
+  end
+
+  def game_is_over
+    players_with_cards = people.select { |person| person.player.hand.length > 0 }
+    players_with_cards.empty?
   end
 
   def play_full_game
