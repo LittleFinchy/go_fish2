@@ -1,7 +1,8 @@
 class Turn
-  attr_reader :person
+  attr_reader :server, :person
 
-  def initialize(person)
+  def initialize(server, person)
+    @server = server
     @person = person
   end
 
@@ -9,8 +10,12 @@ class Turn
   end
 
   def pick_card
-    person.player.hand
-    person.client.puts("K of D")
+    message = "Pick a card: (type the number next to the card)\n"
+    person.player.hand.each_with_index do |card, i|
+      message += "#{i + 1}: #{card.show}\n"
+    end
+    server.set_output(person.client, message)
+    card_picked = person.player.hand[server.get_input(person.client).to_i - 1]
   end
 
   def pick_person

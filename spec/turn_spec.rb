@@ -7,6 +7,7 @@ require "../lib/turn"
 describe("#Turn") do
   let!(:clients) { [] }
   let!(:server) { Server.new() }
+  let!(:turn) { set_up_turn }
 
   after(:each) do
     clients.each { |client| client.close }
@@ -26,8 +27,8 @@ describe("#Turn") do
   def set_up_turn
     make_clients_join(3)
     person = server.lobby[0]
-    person.player.take_cards([Card.new("7", "D"), Card.new("3", "H")])
-    Turn.new(person)
+    person.player.take_cards([Card.new("7", "D"), Card.new("3", "H"), Card.new("4", "S")])
+    Turn.new(server, person)
   end
 
   it "has a person who belongs to it" do
@@ -37,19 +38,39 @@ describe("#Turn") do
 
   context "#pick_card" do
     it "shows person their hand and asks what card they want to ask for" do
-      turn = set_up_turn
       turn.pick_card
       result = clients[0].get_input
+      expect(result.include?("Pick a card:")).to eq true
       expect(result.include?("7 of D")).to eq true
       expect(result.include?("3 of H")).to eq true
+      expect(result.include?("4 of S")).to eq true
     end
 
     it "returns the card object asked for" do
+      clients[0].set_output("1")
+      card = turn.pick_card
+      expect(card).to eq Card.new("7", "D")
+    end
+
+    it "returns the card object asked for" do
+      clients[0].set_output("2")
+      card = turn.pick_card
+      expect(card).to eq Card.new("3", "H")
+    end
+
+    it "returns the card object asked for" do
+      clients[0].set_output("3")
+      card = turn.pick_card
+      expect(card).to eq Card.new("4", "S")
     end
   end
 
   context "#pick_person" do
-    it "shows the person the other players and asks what person they want to ask" do
+    it "shows the person the other people and asks what person they want to ask" do
+      turn.pick_person
+      result = clients[0].get_input
+      expect(result.include?("Stephen")).to eq true
+      expect(result.include?("Joe")).to eq true
     end
 
     it "returns the person object asked for" do

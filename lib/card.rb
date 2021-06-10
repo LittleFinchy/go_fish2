@@ -9,4 +9,8 @@ class Card
   def ==(other_card)
     other_card.rank == rank
   end
+
+  def show
+    "#{rank} of #{suit}"
+  end
 end
