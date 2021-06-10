@@ -1,5 +1,5 @@
 require "rspec"
-require "socket"
+# require "socket"
 require "../lib/client"
 
 describe("#Client") do

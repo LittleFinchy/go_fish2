@@ -1,4 +1,5 @@
 require "rspec"
+# require "socket"
 require "../lib/server"
 require "../lib/client"
 

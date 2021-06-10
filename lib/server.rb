@@ -1,3 +1,4 @@
+require "socket"
 require_relative "person"
 require_relative "game"
 

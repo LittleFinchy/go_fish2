@@ -1,3 +1,5 @@
+require "socket"
+
 class Client
   attr_reader :socket
 
