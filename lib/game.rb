@@ -22,6 +22,7 @@ class Game
   end
 
   def play_full_game
+    people.each { |person| person.client.set_output("yeet") }
   end
 
   def play_turn
