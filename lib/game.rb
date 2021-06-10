@@ -1,8 +1,11 @@
+require_relative "deck"
+
 class Game
   attr_reader :people
 
   def initialize(people)
     @people = people
+    @deck = Deck.new()
   end
 
   def winner
