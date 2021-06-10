@@ -70,12 +70,14 @@ describe("#Server") do
       make_clients_join(2)
       game = server.create_game_if_possible
       expect(game).to be nil
+      expect(server.games.length).to eq 0
     end
 
     it "creates a game if 3 clients join" do
       make_clients_join(3)
       game = server.create_game_if_possible
       expect(game).to_not be nil
+      expect(server.games.length).to eq 1
     end
 
     it "moves people from lobby to the game" do

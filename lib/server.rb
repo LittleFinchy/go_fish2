@@ -2,11 +2,12 @@ require_relative "person"
 require_relative "game"
 
 class Server
-  attr_reader :server, :lobby
+  attr_reader :server, :lobby, :games
 
   def initialize(port = 3335)
     @server = TCPServer.new(port)
     @lobby = []
+    @games = []
   end
 
   def accept_client
@@ -21,6 +22,8 @@ class Server
   def create_game_if_possible
     if lobby.length == 3
       game = Game.new(lobby.shift(3))
+      @games.push(game)
+      game
     end
   end
 
