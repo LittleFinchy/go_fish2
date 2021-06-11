@@ -9,6 +9,16 @@ describe("#Game") do
     expect(game.people[0].name).to eq "Stephen"
   end
 
+  context "#start" do
+    it "should deal 5 cards to each player" do
+      game.start
+      player1_hand = game.people[0].player.hand
+      player3_hand = game.people[2].player.hand
+      expect(player1_hand.length).to eq 5
+      expect(player3_hand.length).to eq 5
+    end
+  end
+
   context "#game_is_over" do
     it "returns false if the game has not ended" do
       expect(game.game_is_over).to eq false

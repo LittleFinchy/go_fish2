@@ -1,11 +1,19 @@
 require_relative "deck"
 
 class Game
-  attr_reader :people
+  attr_reader :people, :deck
 
   def initialize(people)
     @people = people
     @deck = Deck.new()
+  end
+
+  def start
+    5.times do
+      people.each do |person|
+        person.player.take_cards([deck.deal])
+      end
+    end
   end
 
   def winner
