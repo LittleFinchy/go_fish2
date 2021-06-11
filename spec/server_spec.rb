@@ -69,14 +69,14 @@ describe("#Server") do
   context "#create_game_if_possible" do
     it "does not creates a game if only 2 clients join" do
       make_clients_join(2)
-      game = server.create_game_if_possible
+      game = server.create_game_if_possible(server)
       expect(game).to be nil
       expect(server.games.length).to eq 0
     end
 
     it "creates a game if 3 clients join" do
       make_clients_join(3)
-      game = server.create_game_if_possible
+      game = server.create_game_if_possible(server)
       expect(game).to_not be nil
       expect(server.games.length).to eq 1
     end
@@ -84,7 +84,7 @@ describe("#Server") do
     it "moves people from lobby to the game" do
       make_clients_join(3)
       people = server.lobby.dup
-      game = server.create_game_if_possible
+      game = server.create_game_if_possible(server)
       expect(server.lobby).to eq []
       expect(game.people).to eq people
     end

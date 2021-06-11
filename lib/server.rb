@@ -20,9 +20,9 @@ class Server
     "No Clients"
   end
 
-  def create_game_if_possible
+  def create_game_if_possible(server_)
     if lobby.length == 3
-      game = Game.new(server, lobby.shift(3))
+      game = Game.new(server_, lobby.shift(3))
       @games.push(game)
       game
     end

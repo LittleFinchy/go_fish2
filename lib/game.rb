@@ -1,4 +1,5 @@
 require_relative "deck"
+require_relative "turn"
 
 class Game
   attr_reader :server, :people, :deck
@@ -28,6 +29,7 @@ class Game
   end
 
   def play_full_game
+    start
     until game_is_over
       people.each { |person| play_turn(person) }
     end
