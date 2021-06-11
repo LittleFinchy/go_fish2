@@ -11,5 +11,7 @@ while true
     message = client.get_input
   end
   puts message
-  client.set_output(gets.chomp)
+  if message.include?(":")
+    client.set_output(gets.chomp)
+  end
 end

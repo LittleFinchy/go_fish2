@@ -25,7 +25,7 @@ class Game
   end
 
   def game_is_over
-    people.reduce(0) { |total, person| total + person.player.books } == 13
+    people.reduce(0) { |total, person| total + person.player.books } == 13 #max num of books for a 52 cards deck
   end
 
   def play_full_game
@@ -38,6 +38,7 @@ class Game
 
   def play_turn(person)
     turn = Turn.new(server, person, people)
-    turn.play
+    results = turn.play
+    people.each { |person| person.client.puts results }
   end
 end

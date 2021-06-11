@@ -22,7 +22,7 @@ class Server
 
   def create_game_if_possible(server_)
     if lobby.length == 3
-      game = Game.new(server_, lobby.shift(3))
+      game = Game.new(self, lobby.shift(3))
       @games.push(game)
       game
     end

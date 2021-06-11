@@ -1,5 +1,4 @@
 require "rspec"
-# require "../lib/person"
 require "../lib/server"
 require "../lib/client"
 require "../lib/turn"
@@ -86,36 +85,4 @@ describe("#Turn") do
       expect(pick.name).to eq "Joe"
     end
   end
-
-  # context "#play" do
-  #   it "will not move cards if player asked does not have the rank asked for" do
-  #     person2.player.take_cards([Card.new("A", "D")])
-  #     clients[0].set_output("1")
-  #     clients[0].set_output("1")
-  #     turn.play
-  #     expect(person2.player.hand.length).to eq 1
-  #   end
-
-  #   it "will move cards if player asked has the rank asked for" do
-  #     person2.player.take_cards([Card.new("7", "C")])
-  #     clients[0].set_output("1")
-  #     clients[0].set_output("2")
-  #     expect(person2.player.hand.length).to eq 0
-  #     expect(person.player.hand.length).to eq 4
-  #   end
-  # end
-
-  # context "#show_results" do
-  #   it "puts the player and card that were requested" do
-  #     make_clients_join(3)
-  #     result = clients[1].get_input
-  #     expect(result.include?("Joe asked Mary for a 7")).to eq true
-  #   end
-
-  #   it "puts number of cards transferred" do
-  #   end
-
-  #   it "puts number of books placed by person" do
-  #   end
-  # end
 end
