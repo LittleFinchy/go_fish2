@@ -9,22 +9,22 @@ class Game
   end
 
   def winner
-    if game_is_over
-      scores = {}
-      people.each { |person| scores[person.player.books] = person }
-      scores[scores.keys.max]
-    end
+    scores = {}
+    people.each { |person| scores[person.player.books] = person }
+    scores[scores.keys.max]
   end
 
   def game_is_over
-    players_with_cards = people.select { |person| person.player.hand.length > 0 }
-    players_with_cards.empty?
+    people.reduce(0) { |total, person| total + person.player.books } == 13
   end
 
   def play_full_game
-    people.each { |person| person.client.set_output("yeet") }
+    until game_is_over
+      people.each { |player| play_turn(player) }
+    end
+    winner
   end
 
-  def play_turn
+  def play_turn(player)
   end
 end

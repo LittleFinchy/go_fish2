@@ -9,13 +9,19 @@ describe("#Game") do
     expect(game.people[0].name).to eq "Stephen"
   end
 
-  context "#winner" do
-    it "returns nil if the game has not ended" do
-      game.people[0].player.take_cards([Card.new("5", "D")])
-      expect(game.winner).to eq nil
+  context "#game_is_over" do
+    it "returns false if the game has not ended" do
+      expect(game.game_is_over).to eq false
     end
 
-    it "returns player with most books if game is over" do
+    it "returns true if 13 books have been played" do
+      game.people[0].player.books = 13
+      expect(game.game_is_over).to eq true
+    end
+  end
+
+  context "#winner" do
+    it "returns player with most books" do
       book = ["H", "C", "D", "S"].map { |suit| Card.new("2", suit) }
       game.people[0].player.take_cards(book)
       expect(game.winner.name).to eq "Stephen"
