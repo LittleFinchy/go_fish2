@@ -1,9 +1,10 @@
 require_relative "deck"
 
 class Game
-  attr_reader :people, :deck
+  attr_reader :server, :people, :deck
 
-  def initialize(people)
+  def initialize(server, people)
+    @server = server
     @people = people
     @deck = Deck.new()
   end
@@ -28,11 +29,13 @@ class Game
 
   def play_full_game
     until game_is_over
-      people.each { |player| play_turn(player) }
+      people.each { |person| play_turn(person) }
     end
     winner
   end
 
-  def play_turn(player)
+  def play_turn(person)
+    turn = Turn.new(server, person, people)
+    turn.play
   end
 end

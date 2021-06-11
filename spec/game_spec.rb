@@ -2,7 +2,7 @@ require "rspec"
 require "../lib/game"
 
 describe("#Game") do
-  let!(:game) { Game.new([Person.new(nil, "Stephen"), Person.new(nil, "Joe"), Person.new(nil, "Mary")]) }
+  let!(:game) { Game.new(nil, [Person.new(nil, "Stephen"), Person.new(nil, "Joe"), Person.new(nil, "Mary")]) }
 
   it "should have a group of people" do
     expect(game.people.length).to eq 3
