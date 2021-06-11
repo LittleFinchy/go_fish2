@@ -37,7 +37,7 @@ class Game
   end
 
   def play_turn(person)
-    turn = Turn.new(server, person, people)
+    turn = Turn.new(server, person, people, deck)
     results = turn.play
     people.each { |person| person.client.puts results }
   end

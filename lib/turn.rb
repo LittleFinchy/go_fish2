@@ -1,17 +1,26 @@
 class Turn
-  attr_reader :server, :person, :people
+  attr_reader :server, :person, :people, :deck
 
-  def initialize(server, person, people)
+  def initialize(server, person, people, deck)
     @server = server
     @person = person
     @people = people
   end
 
-  def play
+  def play(old_results = "")
+    card_picked, person_picked = get_picks
+    cards_won = person.player.ask(person_picked.player, card_picked)
+    results = build_results(card_picked, person_picked, cards_won, old_results)
+    if cards_won.length > 0
+      play(results)
+    end
+    results
+  end
+
+  def get_picks
     card_picked = pick_card
     person_picked = pick_person
-    cards_won = person.player.ask(person_picked.player, card_picked)
-    show_results(card_picked, person_picked, cards_won)
+    [card_picked, person_picked]
   end
 
   def pick_card
@@ -39,12 +48,14 @@ class Turn
     answer
   end
 
-  def show_results(card_picked, person_picked, cards_won)
-    results = ""
+  def build_results(card_picked, person_picked, cards_won, old_results)
+    results = old_results
+
     if cards_won.length > 0
       results += "#{person.name} took #{cards_won.length} #{card_picked.rank}s from #{person_picked.name}"
     else
       results += "Go Fish! #{person.name} asked #{person_picked.name} for a #{card_picked.rank}"
     end
+    results
   end
 end
