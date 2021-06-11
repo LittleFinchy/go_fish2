@@ -7,14 +7,14 @@ class Turn
     @people = people
   end
 
-  def play(old_results = "")
+  def play
     card_picked, person_picked = get_picks
     cards_won = person.player.ask(person_picked.player, card_picked)
-    results = build_results(card_picked, person_picked, cards_won, old_results)
+    results = build_results(card_picked, person_picked, cards_won)
+    people.each { |person| person.client.puts results }
     if cards_won.length > 0
-      play(results)
+      play
     end
-    results
   end
 
   def get_picks
@@ -48,9 +48,8 @@ class Turn
     answer
   end
 
-  def build_results(card_picked, person_picked, cards_won, old_results)
-    results = old_results
-
+  def build_results(card_picked, person_picked, cards_won)
+    results = ""
     if cards_won.length > 0
       results += "#{person.name} took #{cards_won.length} #{card_picked.rank}s from #{person_picked.name}"
     else
