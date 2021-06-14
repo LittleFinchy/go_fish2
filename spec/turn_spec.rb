@@ -85,4 +85,11 @@ describe("#Turn") do
       expect(pick.name).to eq "Joe"
     end
   end
+
+  context "#play" do
+    it "plays a turn" do
+    end
+  end
 end
+
+#put let inside of context

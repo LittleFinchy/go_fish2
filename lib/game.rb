@@ -25,19 +25,24 @@ class Game
   end
 
   def game_is_over
-    people.reduce(0) { |total, person| total + person.player.books } == 13 #max num of books for a 52 cards deck
+    people_with_cards = people.select { |person| person.player.hand.length > 0 }
+    people_with_cards.length != 4
   end
 
   def play_full_game
     start
     until game_is_over
-      people.each { |person| play_turn(person) }
+      people_with_cards = people.select { |person| person.player.hand.length > 0 }
+      people_with_cards.each { |person| play_turn(person) }
     end
-    winner
+    people.each { |person| person.client.puts "Game Over! #{winner.name} is the winner!" }
   end
 
   def play_turn(person)
-    turn = Turn.new(server, person, people, deck)
-    turn.play
+    people_with_cards = people.select { |person| person.player.hand.length > 0 }
+    if person.player.hand.length > 0
+      turn = Turn.new(server, person, people_with_cards, deck)
+      turn.play
+    end
   end
 end

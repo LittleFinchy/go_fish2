@@ -5,16 +5,16 @@ class Turn
     @server = server
     @person = person
     @people = people
+    @deck = deck
   end
 
   def play
     card_picked, person_picked = get_picks
     cards_won = person.player.ask(person_picked.player, card_picked)
+    person.player.take_cards([deck.deal]) if cards_won.length == 0 && deck.cards_left > 0
     results = build_results(card_picked, person_picked, cards_won)
     people.each { |person| person.client.puts results }
-    if cards_won.length > 0
-      play
-    end
+    play if cards_won.length > 0
   end
 
   def get_picks

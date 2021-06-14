@@ -15,7 +15,8 @@ class Player
 
   def take_cards(cards)
     self.hand.concat(cards)
-    check_for_book
+    check_for_book if hand.length > 0
+    self.hand.shuffle!
   end
 
   def remove_cards(rank)
